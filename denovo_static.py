@@ -55,8 +55,8 @@ def simple(contigfile,outpath,min_size,min_size_assemblyerror):
 	for c in contig_length_info:
 		f.write(c+'\n')
 	f.close()
-	f=open(outpath+'summary_statistics','w')
-	f.write('Statics of contigs:\n')
+	f=open(outpath+'summary_statistics.txt','w')
+	f.write('Contig statistics:\n')
 
 	iii=0
 	total=sum(length)/2
@@ -105,8 +105,8 @@ def simple(contigfile,outpath,min_size,min_size_assemblyerror):
 
 def mapping_info_ctg(outpath,largechrom,smallchrom,contiglength,contiglength_large):
 
-	f=open(outpath+'summary_statistics','a')
-	f.write('Read to Contig alignment:\n')
+	f=open(outpath+'summary_statistics.txt','a')
+	f.write('Read to contig alignment:\n')
 
 	os.system('touch '+outpath+'map_depth/maplength_large_null')
 	os.system('touch '+outpath+'map_depth/readnum_large_null')
@@ -227,10 +227,10 @@ def assembly_info(outpath):
 		f.write(c[0]+'\t'+c[1]+'\t'+str(int(c[1])+int(c[2]))+'\t'+c[3]+'\tInversion\t'+c[6]+'\n')
 	f.close()
 
-	f=open(outpath+'summary_statistics','a')
-	f.write('Number of assembly collapse\t'+str(len(allins))+'\n')
-	f.write('Number of assembly expansion\t'+str(len(alldel))+'\n')
-	f.write('Number of assembly inversion\t'+str(len(allinv))+'\n')
+	f=open(outpath+'summary_statistics.txt','a')
+	f.write('Number of assembly collapses\t'+str(len(allins))+'\n')
+	f.write('Number of assembly expansions\t'+str(len(alldel))+'\n')
+	f.write('Number of assembly inversions\t'+str(len(allinv))+'\n')
 	f.close()
 	return 0
 
@@ -264,11 +264,11 @@ def assembly_info_ref(outpath):
 		f.write(c[0]+'\t'+c[1]+'\t'+str(int(c[1])+int(c[2]))+'\tInversion\n')
 	f.close()
 
-	f=open(outpath+'summary_statistics','a')
+	f=open(outpath+'summary_statistics.txt','a')
 	f.write('Assembly errors from contig to reference:\n')
-	f.write('Number of assembly collapse\t'+str(len(alldel))+'\n')
-	f.write('Number of assembly expansion\t'+str(len(allins))+'\n')
-	f.write('Number of assembly inversion\t'+str(len(allinv))+'\n\n\n')
+	f.write('Number of assembly collapses\t'+str(len(alldel))+'\n')
+	f.write('Number of assembly expansions\t'+str(len(allins))+'\n')
+	f.write('Number of assembly inversions\t'+str(len(allinv))+'\n\n\n')
 	f.close()
 	#os.system("rm "+outpath+"*ion-merged")
 	return 0
@@ -299,11 +299,11 @@ def basepair_error(outpath):
 			mnp+=1
 		a=f.readline()
 	accuracy=1-mismatch/100000.0
-	f=open(outpath+'summary_statistics','a')
-	f.write('Number of small collapse\t'+str(ins)+'\n')
-	f.write('Number of small expansion\t'+str(dels)+'\n')
-	f.write('Number of single basepair error\t'+str(snp)+'\n')
-	f.write('Number of multiple basepair error\t'+str(mnp)+'\n')
+	f=open(outpath+'summary_statistics.txt','a')
+	f.write('Number of small collapses\t'+str(ins)+'\n')
+	f.write('Number of small expansions\t'+str(dels)+'\n')
+	f.write('Number of single basepair errors\t'+str(snp)+'\n')
+	f.write('Number of multiple basepair errors\t'+str(mnp)+'\n')
 	f.write('Base pair accuracy\t'+str(accuracy)+'\n\n\n')
 	return 0
 
@@ -353,11 +353,11 @@ def basepair_error_ref(outpath,largestchr):
 		totallength+=length
 		a=f.readline()
 	accuracy=round((1-mismatch/float(totallength))*10000)/10000.0
-	f=open(outpath+'summary_statistics','a')
+	f=open(outpath+'summary_statistics.txt','a')
 	f.write('Base pair accuracy of longest contig from contig to reference:\n')
-	f.write('Number of small assembly collapse\t'+str(dels)+'\n')
-	f.write('Number of small assembly extension\t'+str(ins)+'\n')
-	f.write('Number of single basepair error\t'+str(snp)+'\n')
+	f.write('Number of small assembly collapses\t'+str(dels)+'\n')
+	f.write('Number of small assembly extensions\t'+str(ins)+'\n')
+	f.write('Number of single basepair errors\t'+str(snp)+'\n')
 	f.write('Base pair accuracy\t'+str(accuracy)+'\n\n\n')
 	f.close()
 	f=open(outpath+'small_scale_error_ref.bed','w')
@@ -442,7 +442,7 @@ def get_ref_align_info(path,totallength):
 	allrefchrom=list(f.references)
 
 	base0=totalrefbase-base1-base2-base3
-	f=open(path+'summary_statistics','a')
+	f=open(path+'summary_statistics.txt','a')
 	f.write('\n\n\nReference-based mode:\n')
 	f.write('Genome Coverage /% '+str(float(base1+base2+base3)/totalrefbase)+'\nReference base with Depth=0 (including Ns): '+str(base0)+';\t'+str(base0/float(totalrefbase)*100)+'%\n')
 	f.write('Reference base with Depth=1 '+str(base1)+';\t'+str(base1/float(totalrefbase)*100)+'%\n')
@@ -483,7 +483,7 @@ def check_depth_ref(outpath,ref):
 	
 	total=cov0+cov1+cov2+cov3
 	
-	f=open(outpath+'summary_statistics','a')
+	f=open(outpath+'summary_statistics.txt','a')
 	f.write('#BP with cov=0\t'+str(cov0*100.00/total)+'\n')
 	f.write('#BP with cov=1\t'+str(cov1*100.00/total)+'\n')
 	f.write('#BP with cov=2\t'+str(cov2*100.00/total)+'\n')
